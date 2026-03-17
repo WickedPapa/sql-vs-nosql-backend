@@ -1,4 +1,4 @@
-package it.montano.sqlvsnosql.entity;
+package it.montano.sqlvsnosql.entity.order;
 
 import jakarta.persistence.*;
 import java.util.List;

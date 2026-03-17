@@ -1,4 +1,4 @@
-package it.montano.sqlvsnosql.entity;
+package it.montano.sqlvsnosql.entity.product;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,22 +7,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "order_items")
+@Table(name = "products")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderItemEntity {
+public class ProductEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   private String id;
 
-  private String productId;
+  private String name;
 
-  private Integer quantity;
-
-  @ManyToOne
-  @JoinColumn(name = "order_id")
-  private OrderEntity order;
+  private Double price;
 }

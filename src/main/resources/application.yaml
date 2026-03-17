@@ -1,0 +1,3 @@
+app:
+  datasource: MONGODB
+  #datasource: POSTGRES

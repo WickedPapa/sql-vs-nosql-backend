@@ -1,10 +1,11 @@
-package it.montano.sqlvsnosql.mapper;
+package it.montano.sqlvsnosql.mapper.order;
 
+import it.montano.sqlvsnosql.document.order.OrderDocument;
 import it.montano.sqlvsnosql.dto.OrderItemRequest;
 import it.montano.sqlvsnosql.dto.OrderRequest;
 import it.montano.sqlvsnosql.dto.OrderResponse;
-import it.montano.sqlvsnosql.entity.OrderEntity;
-import it.montano.sqlvsnosql.entity.OrderItemEntity;
+import it.montano.sqlvsnosql.entity.order.OrderEntity;
+import it.montano.sqlvsnosql.entity.order.OrderItemEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -19,4 +20,9 @@ public interface OrderMapper {
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "order", ignore = true)
   OrderItemEntity toEntity(OrderItemRequest request);
+
+  OrderResponse toResponse(OrderDocument entity);
+
+  @Mapping(target = "id", ignore = true)
+  OrderDocument toDocument(OrderRequest request);
 }

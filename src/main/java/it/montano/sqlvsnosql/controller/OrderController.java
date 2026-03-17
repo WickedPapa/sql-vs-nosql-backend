@@ -3,7 +3,7 @@ package it.montano.sqlvsnosql.controller;
 import it.montano.sqlvsnosql.api.OrdersApi;
 import it.montano.sqlvsnosql.dto.OrderRequest;
 import it.montano.sqlvsnosql.dto.OrderResponse;
-import it.montano.sqlvsnosql.service.OrderService;
+import it.montano.sqlvsnosql.service.order.OrderService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,6 +23,7 @@ public class OrderController implements OrdersApi {
 
   @Override
   public ResponseEntity<Void> deleteOrder(String orderId) {
+    orderService.deleteOrder(orderId);
     return ResponseEntity.noContent().build();
   }
 
