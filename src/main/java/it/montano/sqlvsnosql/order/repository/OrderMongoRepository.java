@@ -6,5 +6,5 @@ import java.util.UUID;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface OrderMongoRepository extends MongoRepository<OrderDocument, UUID> {
-  List<OrderDocument> findByUserId(UUID userId);
+  List<OrderDocument> findByUserUserId(UUID userId);
 }

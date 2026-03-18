@@ -13,5 +13,5 @@ public class OrderItemRequestDto {
   UUID productId;
   String name;
   Integer quantity;
-  Double unitPrice;
+  Double price;
 }

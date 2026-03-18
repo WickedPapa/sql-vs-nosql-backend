@@ -536,7 +536,7 @@ components:
       type: object
       required:
         - id
-        - userId
+        - user
         - items
         - total
       properties:
@@ -544,9 +544,8 @@ components:
           type: string
           format: uuid
           description: Order identifier
-        userId:
-          type: string
-          format: uuid
+        user:
+          $ref: '#/components/schemas/OrderUserResponse'
           description: User identifier
         items:
           type: array
@@ -559,13 +558,37 @@ components:
           description: Total order amount
           minimum: 0
 
+    OrderUserResponse:
+      type: object
+      required:
+        - userId
+        - firstName
+        - lastName
+        - email
+      properties:
+        userId:
+          type: string
+          format: uuid
+          description: User identifier
+        firstName:
+          type: string
+          description: User first name
+        lastName:
+          type: string
+          description: User last name
+        email:
+          type: string
+          format: email
+          description: User email
+          minimum: 0
+
     OrderItemResponse:
       type: object
       required:
         - productId
         - name
         - quantity
-        - unitPrice
+        - price
       properties:
         productId:
           type: string
@@ -577,7 +600,7 @@ components:
         quantity:
           type: integer
           description: Quantity of the product
-        unitPrice:
+        price:
           type: number
           format: double
           description: Product price snapshot at order time

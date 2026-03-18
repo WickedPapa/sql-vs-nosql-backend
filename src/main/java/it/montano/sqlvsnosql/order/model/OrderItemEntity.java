@@ -20,7 +20,7 @@ public class OrderItemEntity {
 
   UUID productId;
   Integer quantity;
-  Double unitPrice;
+  Double price;
 
   @ManyToOne
   @JoinColumn(name = "order_id")

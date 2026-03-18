@@ -9,6 +9,7 @@ import it.montano.sqlvsnosql.dto.ProductResponse;
 import it.montano.sqlvsnosql.order.model.OrderDocument;
 import it.montano.sqlvsnosql.order.repository.OrderMongoRepository;
 import it.montano.sqlvsnosql.product.service.ProductService;
+import it.montano.sqlvsnosql.user.service.UserService;
 import java.util.List;
 import java.util.UUID;
 import lombok.NonNull;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Service;
 @ConditionalOnProperty(prefix = "app", name = "datasource", havingValue = "MONGODB")
 public class OrderMongoService implements OrderService {
 
+  private final UserService userService;
   private final ProductService productService;
   private final OrderMongoRepository repo;
   private final OrderMapper mapper;
@@ -29,7 +31,10 @@ public class OrderMongoService implements OrderService {
   public @NonNull OrderResponse createOrder(@NonNull OrderRequest request) {
     OrderRequestDto orderItemRequestDto = mapper.toDto(request);
     enrichOrderItems(orderItemRequestDto);
-    OrderDocument saved = repo.save(mapper.toDocument(orderItemRequestDto));
+    OrderDocument saved =
+        repo.save(
+            mapper.toDocument(
+                orderItemRequestDto, userService.getUserById(orderItemRequestDto.getUserId())));
     return mapper.toResponse(saved);
   }
 
@@ -45,7 +50,7 @@ public class OrderMongoService implements OrderService {
 
   @Override
   public @NonNull List<OrderResponse> getOrdersByUserId(@NonNull UUID userId) {
-    return repo.findByUserId(userId).stream().map(mapper::toResponse).toList();
+    return repo.findByUserUserId(userId).stream().map(mapper::toResponse).toList();
   }
 
   @Override
@@ -60,7 +65,7 @@ public class OrderMongoService implements OrderService {
   private void fillItemPrice(@NonNull OrderItemRequestDto orderItemRequestDto) {
     ProductResponse productResponse =
         productService.getProductById(orderItemRequestDto.getProductId());
-    orderItemRequestDto.setUnitPrice(productResponse.getPrice());
+    orderItemRequestDto.setPrice(productResponse.getPrice());
     orderItemRequestDto.setName(productResponse.getName());
   }
 }
