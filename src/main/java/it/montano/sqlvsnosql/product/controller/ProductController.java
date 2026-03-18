@@ -27,12 +27,13 @@ public class ProductController implements ProductsApi {
 
   @Override
   public ResponseEntity<Void> deleteProduct(UUID productId) {
-    return ProductsApi.super.deleteProduct(productId);
+    productService.deleteProduct(productId);
+    return ResponseEntity.noContent().build();
   }
 
   @Override
   public ResponseEntity<ProductResponse> getProductById(UUID productId) {
-    return ProductsApi.super.getProductById(productId);
+    return ResponseEntity.ok(productService.getProductById(productId));
   }
 
   @Override
@@ -43,6 +44,6 @@ public class ProductController implements ProductsApi {
   @Override
   public ResponseEntity<ProductResponse> updateProduct(
       UUID productId, ProductRequest productRequest) {
-    return ProductsApi.super.updateProduct(productId, productRequest);
+    return ResponseEntity.ok(productService.updateProduct(productId, productRequest));
   }
 }

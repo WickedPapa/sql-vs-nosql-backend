@@ -21,7 +21,6 @@ public interface OrderMapper {
 
   OrderResponse toResponse(OrderEntity entity);
 
-  @Mapping(target = "itemId", source = "id")
   OrderItemResponse toResponse(OrderItemEntity entity);
 
   OrderRequestDto toDto(OrderRequest request);
@@ -39,17 +38,15 @@ public interface OrderMapper {
 
   OrderResponse toResponse(OrderDocument entity);
 
-  @Mapping(target = "itemId", source = "id")
   OrderItemResponse toResponse(OrderItemDocument entity);
 
   @Mapping(target = "id", expression = "java(UUID.randomUUID())")
   @Mapping(target = "total", expression = "java(calculateTotal(request.getItems()))")
   OrderDocument toDocument(OrderRequestDto request);
 
-  @Mapping(target = "id", expression = "java(UUID.randomUUID())")
   OrderItemDocument toDocument(OrderItemRequestDto request);
 
   default @NonNull Double calculateTotal(@NonNull List<OrderItemRequestDto> items) {
-    return items.stream().mapToDouble(OrderItemRequestDto::getUnitPrice).sum();
+    return items.stream().mapToDouble(item -> item.getUnitPrice() * item.getQuantity()).sum();
   }
 }

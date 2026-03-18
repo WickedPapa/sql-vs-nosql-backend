@@ -562,15 +562,10 @@ components:
     OrderItemResponse:
       type: object
       required:
-        - itemId
         - productId
         - quantity
         - unitPrice
       properties:
-        itemId:
-          type: string
-          format: uuid
-          description: Order item identifier
         productId:
           type: string
           format: uuid
