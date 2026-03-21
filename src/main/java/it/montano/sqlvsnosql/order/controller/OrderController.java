@@ -31,6 +31,11 @@ public class OrderController implements OrdersApi {
   }
 
   @Override
+  public ResponseEntity<List<MostSoldProductResponse>> getMostSoldProducts() {
+    return ResponseEntity.ok(orderService.getMostSoldProducts());
+  }
+
+  @Override
   public ResponseEntity<OrderResponse> getOrderById(UUID orderId) {
     return ResponseEntity.ok(orderService.getOrderById(orderId));
   }
@@ -43,5 +48,10 @@ public class OrderController implements OrdersApi {
   @Override
   public ResponseEntity<List<OrderResponse>> getOrders() {
     return ResponseEntity.ok(orderService.getOrders());
+  }
+
+  @Override
+  public ResponseEntity<List<TotalSpentPerUserResponse>> getTotalSpentPerUser() {
+    return ResponseEntity.ok(orderService.getTotalSpentPerUser());
   }
 }

@@ -3,8 +3,8 @@ package it.montano.sqlvsnosql;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class ApplicationTests {
+@SpringBootTest(properties = {"app.datasource=MONGODB"})
+class MongoTest extends AbstractIntegrationTest {
 
   @Test
   void contextLoads() {}

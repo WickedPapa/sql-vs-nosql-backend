@@ -14,6 +14,11 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres-admin" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   pgadmin:
     image: dpage/pgadmin4
@@ -25,7 +30,8 @@ services:
     ports:
       - "5050:80"
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
 
   mongo:
     image: mongo:7
@@ -38,6 +44,11 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: mongo-psw
     volumes:
       - mongo_data:/data/db
+    healthcheck:
+      test: [ "CMD", "mongosh", "--eval", "db.runCommand({ ping: 1 })" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   mongo-express:
     image: mongo-express
@@ -52,7 +63,37 @@ services:
       ME_CONFIG_BASICAUTH_USERNAME: admin-basic
       ME_CONFIG_BASICAUTH_PASSWORD: psw-basic
     depends_on:
-      - mongo
+      mongo:
+        condition: service_healthy
+
+  api-server:
+    build: .
+    container_name: sql-vs-nosql-api-server
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      APP_DATASOURCE: ${APP_DATASOURCE:-POSTGRES}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      mongo:
+        condition: service_healthy
+    healthcheck:
+      test: 'curl -f http://api-server:8080/actuator/health -H "Connection: close" || exit 1'
+      interval: 5s
+      retries: 10
+
+  newman:
+    image: postman/newman
+    volumes:
+      - .:/etc/newman
+    depends_on:
+      api-server:
+        condition: service_healthy
+    command: run postman/collection.json --env-var baseUrl=http://api-server:8080
+    profiles: [ "test-newman" ]
 
 volumes:
   postgres_data:

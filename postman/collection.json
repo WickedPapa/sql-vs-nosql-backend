@@ -1,0 +1,1896 @@
+{
+  "info": {
+    "_postman_id": "387bf0f3-6eb3-4511-9183-00f34a94968f",
+    "name": "SQLvsNoSQL - TEST",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "28938485"
+  },
+  "item": [
+    {
+      "name": "01 - users",
+      "item": [
+        {
+          "name": "01 - Get all users - Users initial size",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();\r",
+                  "pm.collectionVariables.set(\"usersInitialSize\", responseJson.length);\r",
+                  "\r",
+                  "pm.test(\"Status code is 2xx\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.within(200, 299);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ]
+            },
+            "description": "Returns the list of all users."
+          },
+          "response": []
+        },
+        {
+          "name": "02 - Create user 1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();\r",
+                  "pm.collectionVariables.set(\"userId1\", responseJson.id);\r",
+                  "pm.collectionVariables.set(\"userEmail1\", responseJson.email);\r",
+                  "\r",
+                  "pm.test(\"Status code is 2xx\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.within(200, 299);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false,
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"{{$randomEmail}}\",\r\n  \"firstName\": \"{{$randomLastName}}\",\r\n  \"lastName\": \"{{$randomFirstName}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ]
+            },
+            "description": "Creates a new user."
+          },
+          "response": []
+        },
+        {
+          "name": "03 - Create user 2",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();\r",
+                  "pm.collectionVariables.set(\"userId2\", responseJson.id);\r",
+                  "\r",
+                  "pm.test(\"Status code is 2xx\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.within(200, 299);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false,
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"{{$randomEmail}}\",\r\n  \"firstName\": \"{{$randomLastName}}\",\r\n  \"lastName\": \"{{$randomFirstName}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ]
+            },
+            "description": "Creates a new user."
+          },
+          "response": []
+        },
+        {
+          "name": "04 - Create user 3",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();\r",
+                  "pm.collectionVariables.set(\"userId3\", responseJson.id);\r",
+                  "\r",
+                  "pm.test(\"Status code is 2xx\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.within(200, 299);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false,
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"{{$randomEmail}}\",\r\n  \"firstName\": \"{{$randomLastName}}\",\r\n  \"lastName\": \"{{$randomFirstName}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ]
+            },
+            "description": "Creates a new user."
+          },
+          "response": []
+        },
+        {
+          "name": "05 - Create user 1 - Duplicate email",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Status code is NOT 2xx\", function () {\r",
+                  "    pm.expect(pm.response.code).to.not.be.within(200, 299);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false,
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"{{userEmail1}}\",\r\n  \"firstName\": \"{{$randomLastName}}\",\r\n  \"lastName\": \"{{$randomFirstName}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ]
+            },
+            "description": "Creates a new user."
+          },
+          "response": []
+        },
+        {
+          "name": "06 - Get user by id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 2xx\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.within(200, 299);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/:userId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                ":userId"
+              ],
+              "variable": [
+                {
+                  "key": "userId",
+                  "value": "{{userId1}}",
+                  "description": "User identifier"
+                }
+              ]
+            },
+            "description": "Returns the details of a user by id."
+          },
+          "response": []
+        },
+        {
+          "name": "07 - Get all users - Users pre-delete size",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();\r",
+                  "const initialSize = Number(pm.collectionVariables.get(\"usersInitialSize\"));\r",
+                  "\r",
+                  "pm.test(\"Status code is 2xx\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.within(200, 299);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"There are 3 new users\", function () {\r",
+                  "    pm.expect(res).to.be.an(\"array\");\r",
+                  "    pm.expect(res.length - initialSize).to.eql(3);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ]
+            },
+            "description": "Returns the list of all users."
+          },
+          "response": []
+        },
+        {
+          "name": "08 - Delete user by id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 2xx\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.within(200, 299);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/:userId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                ":userId"
+              ],
+              "variable": [
+                {
+                  "key": "userId",
+                  "value": "{{userId3}}",
+                  "description": "User identifier"
+                }
+              ]
+            },
+            "description": "Deletes a user by id."
+          },
+          "response": []
+        },
+        {
+          "name": "09 - Get all users - Users post-delete size",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();\r",
+                  "const initialSize = Number(pm.collectionVariables.get(\"usersInitialSize\"));\r",
+                  "\r",
+                  "pm.test(\"Status code is 2xx\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.within(200, 299);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"There are 2 new users\", function () {\r",
+                  "    pm.expect(res).to.be.an(\"array\");\r",
+                  "    pm.expect(res.length - initialSize).to.eql(2);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ]
+            },
+            "description": "Returns the list of all users."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "02 - products",
+      "item": [
+        {
+          "name": "01 - Get all products - Products initial size",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();\r",
+                  "pm.collectionVariables.set(\"productsInitialSize\", responseJson.length);\r",
+                  "\r",
+                  "pm.test(\"Status code is 2xx\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.within(200, 299);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products"
+              ]
+            },
+            "description": "Returns the list of all products."
+          },
+          "response": []
+        },
+        {
+          "name": "02 - Create product 1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();\r",
+                  "pm.collectionVariables.set(\"productId1\", responseJson.id);\r",
+                  "pm.collectionVariables.set(\"productName1\", responseJson.name);\r",
+                  "\r",
+                  "pm.test(\"Status code is 2xx\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.within(200, 299);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"{{$randomProductName}}\",\n  \"price\": {{$randomPrice}}\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products"
+              ]
+            },
+            "description": "Creates a new product."
+          },
+          "response": []
+        },
+        {
+          "name": "03 - Create product 2",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();\r",
+                  "pm.collectionVariables.set(\"productId2\", responseJson.id);\r",
+                  "pm.collectionVariables.set(\"productName2\", responseJson.name);\r",
+                  "pm.collectionVariables.set(\"productPrice2\", responseJson.price);\r",
+                  "\r",
+                  "pm.test(\"Status code is 2xx\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.within(200, 299);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"{{$randomProductName}}\",\n  \"price\": {{$randomPrice}}\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products"
+              ]
+            },
+            "description": "Creates a new product."
+          },
+          "response": []
+        },
+        {
+          "name": "04 - Create product 3",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();\r",
+                  "pm.collectionVariables.set(\"productId3\", responseJson.id);\r",
+                  "\r",
+                  "pm.test(\"Status code is 2xx\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.within(200, 299);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"{{$randomProductName}}\",\n  \"price\": {{$randomPrice}}\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products"
+              ]
+            },
+            "description": "Creates a new product."
+          },
+          "response": []
+        },
+        {
+          "name": "05 - Create product 1 - Duplicate name",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Status code is NOT 2xx\", function () {\r",
+                  "    pm.expect(pm.response.code).to.not.be.within(200, 299);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"{{productName1}}\",\n  \"price\": {{$randomPrice}}\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products"
+              ]
+            },
+            "description": "Creates a new product."
+          },
+          "response": []
+        },
+        {
+          "name": "06 - Get product by id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 2xx\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.within(200, 299);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products/:productId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products",
+                ":productId"
+              ],
+              "variable": [
+                {
+                  "key": "productId",
+                  "value": "{{productId1}}",
+                  "description": "Product identifier"
+                }
+              ]
+            },
+            "description": "Returns the details of a product by id."
+          },
+          "response": []
+        },
+        {
+          "name": "07 - Get all products - Products pre-delete size",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();\r",
+                  "const initialSize = Number(pm.collectionVariables.get(\"productsInitialSize\"));\r",
+                  "\r",
+                  "pm.test(\"There are 3 new products\", function () {\r",
+                  "    pm.expect(res).to.be.an(\"array\");\r",
+                  "    pm.expect(res.length - initialSize).to.eql(3);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products"
+              ]
+            },
+            "description": "Returns the list of all products."
+          },
+          "response": []
+        },
+        {
+          "name": "08 - Delete product by id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 2xx\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.within(200, 299);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/products/:productId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products",
+                ":productId"
+              ],
+              "variable": [
+                {
+                  "key": "productId",
+                  "value": "{{productId3}}",
+                  "description": "Product identifier"
+                }
+              ]
+            },
+            "description": "Deletes a product by id."
+          },
+          "response": []
+        },
+        {
+          "name": "09 - Get all products - Products post-delete size",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();\r",
+                  "const initialSize = Number(pm.collectionVariables.get(\"productsInitialSize\"));\r",
+                  "\r",
+                  "pm.test(\"Status code is 2xx\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.within(200, 299);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"There are 2 new products\", function () {\r",
+                  "    pm.expect(res).to.be.an(\"array\");\r",
+                  "    pm.expect(res.length - initialSize).to.eql(2);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products"
+              ]
+            },
+            "description": "Returns the list of all products."
+          },
+          "response": []
+        },
+        {
+          "name": "10 - Update product",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();\r",
+                  "const productName2 = pm.collectionVariables.get(\"productName2\");\r",
+                  "const productPrice2 = Number(pm.collectionVariables.get(\"productPrice2\"));\r",
+                  "\r",
+                  "pm.test(\"Status code is 2xx\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.within(200, 299);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Product name changed\", function () {\r",
+                  "    pm.expect(res.name).to.eql(productName2 + \" - new\");\r",
+                  "    pm.expect(res.price).to.eql(productPrice2);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"{{productName2}} - new\",\n  \"price\": {{productPrice2}}\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/products/:productId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products",
+                ":productId"
+              ],
+              "variable": [
+                {
+                  "key": "productId",
+                  "value": "{{productId2}}",
+                  "description": "Product identifier"
+                }
+              ]
+            },
+            "description": "Updates the name and price of an existing product."
+          },
+          "response": []
+        },
+        {
+          "name": "11 - Get product by id - Update check",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();\r",
+                  "const originalProductName = pm.collectionVariables.get(\"productName2\");\r",
+                  "const originalProductPrice = Number(pm.collectionVariables.get(\"productPrice2\"));\r",
+                  "\r",
+                  "pm.test(\"Status code is 2xx\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.within(200, 299);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Product name changed\", function () {\r",
+                  "    pm.expect(res.name).to.eql(originalProductName + \" - new\");\r",
+                  "    pm.expect(res.price).to.eql(originalProductPrice);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products/:productId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products",
+                ":productId"
+              ],
+              "variable": [
+                {
+                  "key": "productId",
+                  "value": "{{productId2}}",
+                  "description": "Product identifier"
+                }
+              ]
+            },
+            "description": "Returns the details of a product by id."
+          },
+          "response": []
+        },
+        {
+          "name": "12 - Get all products - Products post-update size",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();\r",
+                  "const initialSize = Number(pm.collectionVariables.get(\"productsInitialSize\"));\r",
+                  "\r",
+                  "pm.test(\"Status code is 2xx\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.within(200, 299);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"There are 2 new products\", function () {\r",
+                  "    pm.expect(res).to.be.an(\"array\");\r",
+                  "    pm.expect(res.length - initialSize).to.eql(2);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products"
+              ]
+            },
+            "description": "Returns the list of all products."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "03 - orders",
+      "item": [
+        {
+          "name": "01 - Get orders by user id - UserId1 orders initial size",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();\r",
+                  "pm.collectionVariables.set(\"user1OrdersInitialSize\", responseJson.length);\r",
+                  "\r",
+                  "pm.test(\"Status code is 2xx\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.within(200, 299);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/orders/user/:userId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders",
+                "user",
+                ":userId"
+              ],
+              "variable": [
+                {
+                  "key": "userId",
+                  "value": "{{userId1}}",
+                  "description": "User identifier"
+                }
+              ]
+            },
+            "description": "Returns all orders created by the specified user."
+          },
+          "response": []
+        },
+        {
+          "name": "02 - Get orders by user id - UserId2 orders initial size",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();\r",
+                  "pm.collectionVariables.set(\"user2OrdersInitialSize\", responseJson.length);\r",
+                  "\r",
+                  "pm.test(\"Status code is 2xx\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.within(200, 299);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/orders/user/:userId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders",
+                "user",
+                ":userId"
+              ],
+              "variable": [
+                {
+                  "key": "userId",
+                  "value": "{{userId2}}",
+                  "description": "User identifier"
+                }
+              ]
+            },
+            "description": "Returns all orders created by the specified user."
+          },
+          "response": []
+        },
+        {
+          "name": "03 - Get orders - Orders initial size",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();\r",
+                  "pm.collectionVariables.set(\"ordersInitialSize\", responseJson.length);\r",
+                  "\r",
+                  "pm.test(\"Status code is 2xx\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.within(200, 299);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders"
+              ]
+            },
+            "description": "Returns all orders, optionally filtered by minimum total or product id."
+          },
+          "response": []
+        },
+        {
+          "name": "04 - Create order 1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();\r",
+                  "pm.collectionVariables.set(\"orderId1\", responseJson.id);\r",
+                  "\r",
+                  "pm.test(\"Status code is 2xx\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.within(200, 299);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"productId\": \"{{productId1}}\",\n      \"quantity\": {{$randomInt}}\n    },\n    {\n      \"productId\": \"{{productId2}}\",\n      \"quantity\": {{$randomInt}}\n    }\n  ],\n  \"userId\": \"{{userId1}}\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders"
+              ]
+            },
+            "description": "Creates a new order for a user."
+          },
+          "response": []
+        },
+        {
+          "name": "05 - Create order 2",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();\r",
+                  "pm.collectionVariables.set(\"orderId2\", responseJson.id);\r",
+                  "\r",
+                  "pm.test(\"Status code is 2xx\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.within(200, 299);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"productId\": \"{{productId2}}\",\n      \"quantity\": {{$randomInt}}\n    }\n  ],\n  \"userId\": \"{{userId2}}\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders"
+              ]
+            },
+            "description": "Creates a new order for a user."
+          },
+          "response": []
+        },
+        {
+          "name": "06 - Create order 3",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();\r",
+                  "pm.collectionVariables.set(\"orderId3\", responseJson.id);\r",
+                  "\r",
+                  "pm.test(\"Status code is 2xx\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.within(200, 299);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"productId\": \"{{productId2}}\",\n      \"quantity\": {{$randomInt}}\n    }\n  ],\n  \"userId\": \"{{userId1}}\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders"
+              ]
+            },
+            "description": "Creates a new order for a user."
+          },
+          "response": []
+        },
+        {
+          "name": "07 - Get order by id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Status code is 2xx\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.within(200, 299);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/orders/:orderId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders",
+                ":orderId"
+              ],
+              "variable": [
+                {
+                  "key": "orderId",
+                  "value": "{{orderId1}}",
+                  "description": "Order identifier"
+                }
+              ]
+            },
+            "description": "Returns the details of an order by id."
+          },
+          "response": []
+        },
+        {
+          "name": "08 - Get orders by user id - UserId1 has 2 new orders",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();\r",
+                  "const ordersInitialSize = Number(pm.collectionVariables.get(\"user1OrdersInitialSize\"));\r",
+                  "\r",
+                  "pm.test(\"Status code is 2xx\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.within(200, 299);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"There are 2 new orders\", function () {\r",
+                  "    pm.expect(responseJson).to.be.an(\"array\");\r",
+                  "    pm.expect(responseJson.length - ordersInitialSize).to.eql(2);\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/orders/user/:userId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders",
+                "user",
+                ":userId"
+              ],
+              "variable": [
+                {
+                  "key": "userId",
+                  "value": "{{userId1}}",
+                  "description": "User identifier"
+                }
+              ]
+            },
+            "description": "Returns all orders created by the specified user."
+          },
+          "response": []
+        },
+        {
+          "name": "09 - Get orders by user id - UserId2 has 1 new orders",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();\r",
+                  "const ordersInitialSize = Number(pm.collectionVariables.get(\"user2OrdersInitialSize\"));\r",
+                  "\r",
+                  "pm.test(\"Status code is 2xx\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.within(200, 299);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"There are 1 new order\", function () {\r",
+                  "    pm.expect(responseJson).to.be.an(\"array\");\r",
+                  "    pm.expect(responseJson.length - ordersInitialSize).to.eql(1);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/orders/user/:userId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders",
+                "user",
+                ":userId"
+              ],
+              "variable": [
+                {
+                  "key": "userId",
+                  "value": "{{userId2}}",
+                  "description": "User identifier"
+                }
+              ]
+            },
+            "description": "Returns all orders created by the specified user."
+          },
+          "response": []
+        },
+        {
+          "name": "10 - Get orders - Orders pre-delete size",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();\r",
+                  "const initialSize = Number(pm.collectionVariables.get(\"ordersInitialSize\"));\r",
+                  "\r",
+                  "pm.test(\"There are 3 new orders\", function () {\r",
+                  "    pm.expect(res).to.be.an(\"array\");\r",
+                  "    pm.expect(res.length - initialSize).to.eql(3);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders"
+              ]
+            },
+            "description": "Returns all orders, optionally filtered by minimum total or product id."
+          },
+          "response": []
+        },
+        {
+          "name": "11 - Delete order by id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 2xx\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.within(200, 299);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/orders/:orderId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders",
+                ":orderId"
+              ],
+              "variable": [
+                {
+                  "key": "orderId",
+                  "value": "{{orderId3}}",
+                  "description": "Order identifier"
+                }
+              ]
+            },
+            "description": "Deletes an order by id."
+          },
+          "response": []
+        },
+        {
+          "name": "12 - Get orders by user id - UserId1 has 1 new orders",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();\r",
+                  "const ordersInitialSize = Number(pm.collectionVariables.get(\"user1OrdersInitialSize\"));\r",
+                  "\r",
+                  "pm.test(\"Status code is 2xx\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.within(200, 299);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"There are 1 new order\", function () {\r",
+                  "    pm.expect(responseJson).to.be.an(\"array\");\r",
+                  "    pm.expect(responseJson.length - ordersInitialSize).to.eql(1);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/orders/user/:userId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders",
+                "user",
+                ":userId"
+              ],
+              "variable": [
+                {
+                  "key": "userId",
+                  "value": "{{userId1}}",
+                  "description": "User identifier"
+                }
+              ]
+            },
+            "description": "Returns all orders created by the specified user."
+          },
+          "response": []
+        },
+        {
+          "name": "13 - Get orders - Orders post-delete size",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();\r",
+                  "const initialSize = Number(pm.collectionVariables.get(\"ordersInitialSize\"));\r",
+                  "\r",
+                  "pm.test(\"There are 2 new orders\", function () {\r",
+                  "    pm.expect(res).to.be.an(\"array\");\r",
+                  "    pm.expect(res.length - initialSize).to.eql(2);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders"
+              ]
+            },
+            "description": "Returns all orders, optionally filtered by minimum total or product id."
+          },
+          "response": []
+        },
+        {
+          "name": "14 - Get total spent per user",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 2xx\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.within(200, 299);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/orders/stats/total-spent-per-user",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders",
+                "stats",
+                "total-spent-per-user"
+              ]
+            },
+            "description": "Returns the total amount spent by each user."
+          },
+          "response": []
+        },
+        {
+          "name": "15 - Get most sold products",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 2xx\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.within(200, 299);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/orders/stats/most-sold-products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders",
+                "stats",
+                "most-sold-products"
+              ]
+            },
+            "description": "Returns products sorted by sold quantity."
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "userId",
+      "value": ""
+    },
+    {
+      "key": "userId1",
+      "value": ""
+    },
+    {
+      "key": "useremail1",
+      "value": ""
+    },
+    {
+      "key": "userId1email",
+      "value": ""
+    },
+    {
+      "key": "user1email",
+      "value": ""
+    },
+    {
+      "key": "usersInitialSize",
+      "value": ""
+    },
+    {
+      "key": "userEmail1",
+      "value": ""
+    },
+    {
+      "key": "userId2",
+      "value": ""
+    },
+    {
+      "key": "userId3",
+      "value": ""
+    },
+    {
+      "key": "productsInitialSize",
+      "value": ""
+    },
+    {
+      "key": "productId1",
+      "value": ""
+    },
+    {
+      "key": "productName1",
+      "value": ""
+    },
+    {
+      "key": "productId2",
+      "value": ""
+    },
+    {
+      "key": "productName2",
+      "value": ""
+    },
+    {
+      "key": "productPrice2",
+      "value": ""
+    },
+    {
+      "key": "productId3",
+      "value": ""
+    },
+    {
+      "key": "ordersInitialSize",
+      "value": ""
+    },
+    {
+      "key": "order1",
+      "value": ""
+    },
+    {
+      "key": "order2",
+      "value": ""
+    },
+    {
+      "key": "order3",
+      "value": ""
+    },
+    {
+      "key": "orderId1",
+      "value": ""
+    },
+    {
+      "key": "orderId2",
+      "value": ""
+    },
+    {
+      "key": "orderId3",
+      "value": ""
+    },
+    {
+      "key": "user1OrdersInitialSize",
+      "value": ""
+    },
+    {
+      "key": "user2OrdersInitialSize",
+      "value": ""
+    }
+  ]
+}

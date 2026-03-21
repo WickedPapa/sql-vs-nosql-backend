@@ -326,37 +326,37 @@ paths:
 #        '404':
 #          description: Order or item not found
 
-#  /orders/stats/total-spent-per-user:
-#    get:
-#      tags: [Stats]
-#      summary: Get total spent per user
-#      description: Returns the total amount spent by each user.
-#      operationId: getTotalSpentPerUser
-#      responses:
-#        '200':
-#          description: Total spent per user
-#          content:
-#            application/json:
-#              schema:
-#                type: array
-#                items:
-#                  $ref: '#/components/schemas/TotalSpentPerUserResponse'
-#
-#  /orders/stats/most-sold-products:
-#    get:
-#      tags: [Stats]
-#      summary: Get most sold products
-#      description: Returns products sorted by sold quantity.
-#      operationId: getMostSoldProducts
-#      responses:
-#        '200':
-#          description: Most sold products
-#          content:
-#            application/json:
-#              schema:
-#                type: array
-#                items:
-#                  $ref: '#/components/schemas/MostSoldProductResponse'
+  /orders/stats/total-spent-per-user:
+    get:
+      tags: [Stats]
+      summary: Get total spent per user
+      description: Returns the total amount spent by each user.
+      operationId: getTotalSpentPerUser
+      responses:
+        '200':
+          description: Total spent per user
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TotalSpentPerUserResponse'
+
+  /orders/stats/most-sold-products:
+    get:
+      tags: [Stats]
+      summary: Get most sold products
+      description: Returns products sorted by sold quantity.
+      operationId: getMostSoldProducts
+      responses:
+        '200':
+          description: Most sold products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MostSoldProductResponse'
 
 components:
   parameters:
@@ -580,7 +580,6 @@ components:
           type: string
           format: email
           description: User email
-          minimum: 0
 
     OrderItemResponse:
       type: object
@@ -610,12 +609,25 @@ components:
       type: object
       required:
         - userId
+        - firstName
+        - lastName
+        - email
         - totalSpent
       properties:
         userId:
           type: string
           format: uuid
           description: User identifier
+        firstName:
+          type: string
+          description: User first name
+        lastName:
+          type: string
+          description: User last name
+        email:
+          type: string
+          format: email
+          description: User email
         totalSpent:
           type: number
           format: double
@@ -626,13 +638,17 @@ components:
       type: object
       required:
         - productId
+        - name
         - totalQuantity
       properties:
         productId:
           type: string
           format: uuid
           description: Product identifier
+        name:
+          type: string
+          description: Product name
         totalQuantity:
-          type: integer
+          type: long
           description: Total sold quantity
           minimum: 0

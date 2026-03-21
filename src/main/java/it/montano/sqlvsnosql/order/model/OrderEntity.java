@@ -1,7 +1,6 @@
 package it.montano.sqlvsnosql.order.model;
 
 import jakarta.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -27,9 +26,4 @@ public class OrderEntity {
   List<OrderItemEntity> items = new ArrayList<>();
 
   Double total;
-
-  public void addItem(OrderItemEntity item) {
-    items.add(item);
-    item.setOrder(this);
-  }
 }

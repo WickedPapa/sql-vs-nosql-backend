@@ -1,6 +1,5 @@
 app:
-  #datasource: MONGODB
-  datasource: POSTGRES
+  datasource: ${APP_DATASOURCE:POSTGRES}
 
 spring:
   datasource:
@@ -18,3 +17,9 @@ spring:
       uri: mongodb://mongo-admin:mongo-psw@localhost:27017/sql_vs_nosql_mongo_db?authSource=admin
       uuid-representation: standard
       auto-index-creation: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health

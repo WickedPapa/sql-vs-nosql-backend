@@ -1,3 +1,16 @@
+
+---
+
+![Language](https://img.shields.io/badge/language-Java_21-blue)
+![Framework](https://img.shields.io/badge/framework-Spring_Boot-brightgreen)
+![Database](https://img.shields.io/badge/database-PostgreSQL-blue)
+![Database](https://img.shields.io/badge/database-MongoDB-green)
+![Container](https://img.shields.io/badge/container-Docker-blue)
+![API](https://img.shields.io/badge/API-OpenAPI-orange)
+![Codegen](https://img.shields.io/badge/codegen-Swagger_Codegen-orange)
+![Mapper](https://img.shields.io/badge/mapper-MapStruct-yellow)
+![Boilerplate](https://img.shields.io/badge/boilerplate-Lombok-red)
+
 # SQL vs NoSQL Backend
 
 This project demonstrates a backend application that can run using either **PostgreSQL (relational)** or **MongoDB (NoSQL)**.
@@ -11,104 +24,110 @@ Everything is fully containerized with Docker, so no local setup (Java, Maven, D
 * Docker
 * Docker Compose
 
+Install Docker Desktop (includes Docker Compose):
+
+👉 https://docs.docker.com/get-docker/
+
 ---
 
 ## ▶️ Run the application
 
-### Using PostgreSQL (default relational DB)
+### PostgreSQL (relational)
 
 ```bash
-APP_DATASOURCE=POSTGRES docker-compose up --build
+APP_DATASOURCE=POSTGRES docker compose up -d --build
 ```
 
----
-
-### Using MongoDB (NoSQL DB)
+### MongoDB (NoSQL)
 
 ```bash
-APP_DATASOURCE=MONGODB docker-compose up --build
+APP_DATASOURCE=MONGODB docker compose up -d --build
 ```
+
+### Important:
+
+> In both cases you can remove `-d` if you want to see the logs in console.
 
 ---
 
 ## 🌐 Services
 
-### Application (API)
+### 🧩 Application (API)
 
 * Swagger UI → http://localhost:8080/swagger-ui/index.html
-  → Graphical interface to test APIs directly from the browser
+  → Test APIs directly from the browser
 
 * OpenAPI JSON → http://localhost:8080/v3/api-docs
-  → Raw API specification in JSON format
+  → API specification in JSON
 
 * OpenAPI YAML → http://localhost:8080/v3/api-docs.yaml
-  → Downloadable API specification (useful for tools or documentation)
+  → Downloadable API specification
 
 ---
 
-### PostgreSQL (pgAdmin)
+### 🐘 PostgreSQL (pgAdmin)
 
 * URL → http://localhost:5050
 * Email → `pg@admin.com`
 * Password → `pg-psw`
 
-→ Web interface to explore the relational database (tables, rows, queries)
+→ Web interface to explore relational data (tables, queries)
+
+**First time setup:**
+
+* Add new server
+* Name → `postgres`
+* Host → `postgres`
+* Port → `5432`
+* Username → `postgres-admin`
+* Password → `postgres-psw`
 
 ---
 
-### MongoDB (Mongo Express)
+### 🍃 MongoDB (Mongo Express)
 
 * URL → http://localhost:8081
 * Username → `admin-basic`
 * Password → `psw-basic`
 
-→ Web interface to explore MongoDB collections and documents
+→ Web interface to explore MongoDB documents and collections
 
 ---
 
 ## 🔄 Reset databases
 
-To completely reset all databases (Postgres + Mongo):
-
 ```bash
-docker-compose down -v
+docker compose down -v
 ```
 
-Then restart:
+Then start again (choose one):
 
 ```bash
-docker-compose up --build
+APP_DATASOURCE=POSTGRES docker compose up -d --build
+```
+or
+```bash
+APP_DATASOURCE=MONGODB docker compose up -d --build
 ```
 
 ---
 
 ## 🧠 Notes
 
-* The application automatically switches between PostgreSQL and MongoDB based on the `APP_DATASOURCE` variable.
-* No manual configuration is required.
-* Data is persisted using Docker volumes (removed only with `-v`).
+* The application switches database based on `APP_DATASOURCE`
+* No manual configuration required
+* Data is persisted using Docker volumes (removed only with `-v`)
 
 ---
 
 ## 📦 Tech stack
 
-* Java 21
-* Spring Boot
-* PostgreSQL
-* MongoDB
+* Java 21 + Spring Boot
+* PostgreSQL (relational)
+* MongoDB (NoSQL)
 * Docker & Docker Compose
-* OpenAPI (API documentation)
+* OpenAPI (API specification)
 * Swagger UI (API exploration)
-* Swagger Codegen (client/server generation)
+* Swagger Codegen (code generation)
 
 ---
-
-![Language](https://img.shields.io/badge/language-Java_21-blue)
-![Framework](https://img.shields.io/badge/framework-Spring_Boot-brightgreen)
-![Database](https://img.shields.io/badge/database-PostgreSQL-blue)
-![Database](https://img.shields.io/badge/database-MongoDB-green)
-![Container](https://img.shields.io/badge/container-Docker-blue)
-![API](https://img.shields.io/badge/API-OpenAPI-orange)
-![Codegen](https://img.shields.io/badge/codegen-Swagger_Codegen-orange)
-![Mapper](https://img.shields.io/badge/mapper-MapStruct-yellow)
-![Boilerplate](https://img.shields.io/badge/boilerplate-Lombok-red)

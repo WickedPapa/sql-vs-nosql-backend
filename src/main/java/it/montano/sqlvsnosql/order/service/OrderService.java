@@ -1,7 +1,9 @@
 package it.montano.sqlvsnosql.order.service;
 
+import it.montano.sqlvsnosql.dto.MostSoldProductResponse;
 import it.montano.sqlvsnosql.dto.OrderRequest;
 import it.montano.sqlvsnosql.dto.OrderResponse;
+import it.montano.sqlvsnosql.dto.TotalSpentPerUserResponse;
 import java.util.List;
 import java.util.UUID;
 import lombok.NonNull;
@@ -14,6 +16,9 @@ public interface OrderService {
   void deleteOrder(@NonNull UUID orderId);
 
   @NonNull
+  List<MostSoldProductResponse> getMostSoldProducts();
+
+  @NonNull
   OrderResponse getOrderById(@NonNull UUID orderId);
 
   @NonNull
@@ -21,4 +26,7 @@ public interface OrderService {
 
   @NonNull
   List<OrderResponse> getOrders();
+
+  @NonNull
+  List<TotalSpentPerUserResponse> getTotalSpentPerUser();
 }

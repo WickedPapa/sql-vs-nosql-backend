@@ -3,9 +3,7 @@ package it.montano.sqlvsnosql.order.service;
 import it.montano.sqlvsnosql.common.dto.OrderItemRequestDto;
 import it.montano.sqlvsnosql.common.dto.OrderRequestDto;
 import it.montano.sqlvsnosql.common.mapper.OrderMapper;
-import it.montano.sqlvsnosql.dto.OrderRequest;
-import it.montano.sqlvsnosql.dto.OrderResponse;
-import it.montano.sqlvsnosql.dto.ProductResponse;
+import it.montano.sqlvsnosql.dto.*;
 import it.montano.sqlvsnosql.order.model.OrderDocument;
 import it.montano.sqlvsnosql.order.repository.OrderMongoRepository;
 import it.montano.sqlvsnosql.product.service.ProductService;
@@ -44,6 +42,11 @@ public class OrderMongoService implements OrderService {
   }
 
   @Override
+  public @NonNull List<MostSoldProductResponse> getMostSoldProducts() {
+    return repo.getMostSoldProduct();
+  }
+
+  @Override
   public @NonNull OrderResponse getOrderById(@NonNull UUID orderId) {
     return repo.findById(orderId).map(mapper::toResponse).orElseThrow();
   }
@@ -56,6 +59,11 @@ public class OrderMongoService implements OrderService {
   @Override
   public @NonNull List<OrderResponse> getOrders() {
     return repo.findAll().stream().map(mapper::toResponse).toList();
+  }
+
+  @Override
+  public @NonNull List<TotalSpentPerUserResponse> getTotalSpentPerUser() {
+    return repo.getTotalSpentPerUser();
   }
 
   private void enrichOrderItems(@NonNull OrderRequestDto orderRequestDto) {
