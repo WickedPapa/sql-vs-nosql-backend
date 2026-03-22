@@ -6,6 +6,7 @@ import it.montano.sqlvsnosql.product.model.ProductEntity;
 import java.util.UUID;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 @Mapper(imports = {UUID.class})
 public interface ProductMapper {
@@ -19,4 +20,10 @@ public interface ProductMapper {
 
   @Mapping(target = "id", expression = "java(UUID.randomUUID())")
   ProductDocument toDocument(ProductRequest request);
+
+  @Mapping(target = "id", ignore = true)
+  void updateEntity(ProductRequest request, @MappingTarget ProductEntity entity);
+
+  @Mapping(target = "id", ignore = true)
+  void updateDocument(ProductRequest productRequest, @MappingTarget ProductDocument doc);
 }

@@ -53,4 +53,28 @@ class ProductMapperTest {
         .ignoringFields("id")
         .isEqualTo(request);
   }
+
+  @Test
+  void shouldUpdateEntity(@Given ProductRequest request, @Given ProductEntity entity) {
+    mapper.updateEntity(request, entity);
+
+    assertThat(entity)
+        .isNotNull()
+        .satisfies(r -> assertThat(r.getId()).isNotNull())
+        .usingRecursiveComparison()
+        .ignoringFields("id")
+        .isEqualTo(request);
+  }
+
+  @Test
+  void shouldUpdateDocument(@Given ProductRequest request, @Given ProductDocument doc) {
+    mapper.updateDocument(request, doc);
+
+    assertThat(doc)
+        .isNotNull()
+        .satisfies(r -> assertThat(r.getId()).isNotNull())
+        .usingRecursiveComparison()
+        .ignoringFields("id")
+        .isEqualTo(request);
+  }
 }
