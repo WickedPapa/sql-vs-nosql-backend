@@ -117,15 +117,7 @@ The application must be already running and fully started before executing the t
 docker compose down -v
 ```
 
-Then start again (choose one):
-
-```bash
-APP_DATASOURCE=POSTGRES docker compose up -d --build
-```
-or
-```bash
-APP_DATASOURCE=MONGODB docker compose up -d --build
-```
+Then restart the app
 
 ---
 
