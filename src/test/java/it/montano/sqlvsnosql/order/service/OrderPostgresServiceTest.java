@@ -58,7 +58,6 @@ class OrderPostgresServiceTest {
               assertThat(r.getUser().getFirstName()).isEqualTo(user.getFirstName());
               assertThat(r.getUser().getLastName()).isEqualTo(user.getLastName());
               assertThat(r.getUser().getEmail()).isEqualTo(user.getEmail());
-
               assertThat(r.getItems())
                   .singleElement()
                   .satisfies(
@@ -68,6 +67,7 @@ class OrderPostgresServiceTest {
                         assertThat(item.getQuantity()).isEqualTo(1);
                         assertThat(item.getPrice()).isEqualTo(product.getPrice());
                       });
+              assertThat(r.getTotal()).isEqualTo(r.getItems().stream().mapToDouble(item -> item.getPrice() * item.getQuantity()).sum());
             });
 
     verify(productService, times(2)).getProductById(productId);
@@ -104,7 +104,6 @@ class OrderPostgresServiceTest {
               assertThat(r.getUser().getFirstName()).isEqualTo(user.getFirstName());
               assertThat(r.getUser().getLastName()).isEqualTo(user.getLastName());
               assertThat(r.getUser().getEmail()).isEqualTo(user.getEmail());
-
               assertThat(r.getItems())
                   .singleElement()
                   .satisfies(
@@ -144,7 +143,6 @@ class OrderPostgresServiceTest {
               assertThat(r.getUser().getFirstName()).isEqualTo(user.getFirstName());
               assertThat(r.getUser().getLastName()).isEqualTo(user.getLastName());
               assertThat(r.getUser().getEmail()).isEqualTo(user.getEmail());
-
               assertThat(r.getItems())
                   .singleElement()
                   .satisfies(
@@ -187,7 +185,6 @@ class OrderPostgresServiceTest {
               assertThat(r.getUser().getFirstName()).isEqualTo(user.getFirstName());
               assertThat(r.getUser().getLastName()).isEqualTo(user.getLastName());
               assertThat(r.getUser().getEmail()).isEqualTo(user.getEmail());
-
               assertThat(r.getItems())
                   .singleElement()
                   .satisfies(
