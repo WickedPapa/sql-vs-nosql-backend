@@ -34,21 +34,26 @@ Install Docker Desktop (includes Docker Compose):
 
 ### PostgreSQL (relational) (default)
 
+#### Linux
 ```bash
 APP_DATASOURCE=POSTGRES docker compose up -d --build
+```
+#### Windows (PowerShell)
+```bash
+$env:HOME=$env:USERPROFILE; $env:APP_DATASOURCE="POSTGRES"; docker compose up -d --build
 ```
 
 ### MongoDB (NoSQL)
 
+#### Linux
 ```bash
 APP_DATASOURCE=MONGODB docker compose up -d --build
 ```
 
-### Important:
-
-> In both cases you can remove `-d` if you want to see the logs in console.
-
----
+#### Windows (PowerShell)
+```bash
+$env:HOME=$env:USERPROFILE; $env:APP_DATASOURCE="MONGODB"; docker compose up -d --build
+```
 
 ## 🧪 Run API tests (automatic)
 
@@ -57,9 +62,8 @@ You can run all API tests (including minimal automatic data setup) using Newman 
 docker compose --profile test-newman run --rm newman
 ```
 
-### ⚙️ How it works
-- If the application is already running, tests will use the current configuration
-- If the application is not running, Docker will start it automatically in this case, the default datasource (PostgreSQL) will be used, unless a different one is specified (e.g. `APP_DATASOURCE=MONGODB`)
+### ⚠️ Prerequisite
+The application must be already running and fully started before executing the tests
 
 ---
 

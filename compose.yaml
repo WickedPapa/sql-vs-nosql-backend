@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
 
   postgres:
@@ -80,20 +78,32 @@ services:
         condition: service_healthy
       mongo:
         condition: service_healthy
+    volumes:
+      - ${HOME}/.m2:/root/.m2
     healthcheck:
-      test: 'curl -f http://api-server:8080/actuator/health -H "Connection: close" || exit 1'
+      test: 'curl -f http://localhost:8080/actuator/health -H "Connection: close" || exit 1'
       interval: 5s
       retries: 10
 
   newman:
     image: postman/newman
+    profiles:
+      - test-newman
+    working_dir: /etc/newman
     volumes:
-      - .:/etc/newman
-    depends_on:
-      api-server:
-        condition: service_healthy
-    command: run postman/collection.json --env-var baseUrl=http://api-server:8080
-    profiles: [ "test-newman" ]
+      - ./postman:/etc/newman
+    entrypoint: >
+      sh -c '
+        echo "Checking whether the API is already running...";
+        if ! wget -q -O - http://api-server:8080/actuator/health | grep -q "\"status\":\"UP\""; then
+          echo "";
+          echo "The API server is not available or not healthy.";
+          echo "Please start the application first, then run the Newman tests again.";
+          exit 1;
+        fi;
+        echo "API is healthy. Starting Newman tests...";
+        newman run collection.json --env-var baseUrl=http://api-server:8080
+      '
 
 volumes:
   postgres_data:
