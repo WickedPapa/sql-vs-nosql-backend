@@ -74,7 +74,7 @@ public class OrderPostgresService implements OrderService {
   }
 
   private OrderResponse enrichOrderResponse(@NonNull OrderResponse orderResponse) {
-    orderResponse.getItems().forEach(this::fillItemPrice);
+    orderResponse.getItems().forEach(this::fillItemName);
     UserResponse userResponse = userService.getUserById(orderResponse.getUser().getUserId());
     orderResponse.setUser(mapper.toOrderUserResponse(userResponse));
     return orderResponse;
@@ -85,7 +85,7 @@ public class OrderPostgresService implements OrderService {
         productService.getProductById(orderItemRequestDto.getProductId()).getPrice());
   }
 
-  private void fillItemPrice(@NonNull OrderItemResponse orderItemResponse) {
+  private void fillItemName(@NonNull OrderItemResponse orderItemResponse) {
     orderItemResponse.setName(
         productService.getProductById(orderItemResponse.getProductId()).getName());
   }
