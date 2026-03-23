@@ -2,8 +2,8 @@ package it.montano.sqlvsnosql.order.service;
 
 import it.montano.sqlvsnosql.common.dto.OrderItemRequestDto;
 import it.montano.sqlvsnosql.common.dto.OrderRequestDto;
-import it.montano.sqlvsnosql.common.exeption.ResourceNotFoundException;
 import it.montano.sqlvsnosql.common.mapper.OrderMapper;
+import it.montano.sqlvsnosql.config.exeption.ResourceNotFoundException;
 import it.montano.sqlvsnosql.dto.*;
 import it.montano.sqlvsnosql.order.model.OrderDocument;
 import it.montano.sqlvsnosql.order.repository.OrderMongoRepository;
@@ -41,10 +41,11 @@ public class OrderMongoService implements OrderService {
     return mapper.toResponse(saved);
   }
 
-  @Caching(evict = {
-          @CacheEvict(value = "orders-by-user", allEntries = true),
-          @CacheEvict(value = "orders", key = "#orderId")
-  })
+  @Caching(
+      evict = {
+        @CacheEvict(value = "orders-by-user", allEntries = true),
+        @CacheEvict(value = "orders", key = "#orderId")
+      })
   @Override
   public void deleteOrder(@NonNull UUID orderId) {
     repo.deleteById(orderId);

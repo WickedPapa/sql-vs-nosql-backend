@@ -1,7 +1,7 @@
 package it.montano.sqlvsnosql.product.service;
 
-import it.montano.sqlvsnosql.common.exeption.ResourceNotFoundException;
 import it.montano.sqlvsnosql.common.mapper.ProductMapper;
+import it.montano.sqlvsnosql.config.exeption.ResourceNotFoundException;
 import it.montano.sqlvsnosql.dto.ProductRequest;
 import it.montano.sqlvsnosql.dto.ProductResponse;
 import it.montano.sqlvsnosql.product.model.ProductEntity;

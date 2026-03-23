@@ -1,9 +1,8 @@
-package it.montano.sqlvsnosql.common.exeption;
+package it.montano.sqlvsnosql.config.exeption;
 
 import it.montano.sqlvsnosql.dto.ErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import java.time.OffsetDateTime;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -82,11 +81,10 @@ public class GlobalExceptionHandler {
 
   private void logException(HttpServletRequest request, Exception ex, Integer status) {
     log.error(
-            "Handled exception:\n--------------------------------------------\nERROR:\nstatus = {}\npath = {}\nerror = {}\n--------------------------------------------",
-            status,
-            request.getRequestURI(),
-            ex.getMessage(),
-            ex
-    );
+        "Handled exception:\n--------------------------------------------\nERROR:\nstatus = {}\npath = {}\nerror = {}\n--------------------------------------------",
+        status,
+        request.getRequestURI(),
+        ex.getMessage(),
+        ex);
   }
 }

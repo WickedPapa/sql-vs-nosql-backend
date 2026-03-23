@@ -1,7 +1,7 @@
 package it.montano.sqlvsnosql.user.service;
 
-import it.montano.sqlvsnosql.common.exeption.ResourceNotFoundException;
 import it.montano.sqlvsnosql.common.mapper.UserMapper;
+import it.montano.sqlvsnosql.config.exeption.ResourceNotFoundException;
 import it.montano.sqlvsnosql.dto.UserRequest;
 import it.montano.sqlvsnosql.dto.UserResponse;
 import it.montano.sqlvsnosql.user.model.UserDocument;

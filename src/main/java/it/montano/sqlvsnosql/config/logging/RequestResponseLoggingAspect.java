@@ -1,4 +1,4 @@
-package it.montano.sqlvsnosql.logging;
+package it.montano.sqlvsnosql.config.logging;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -41,37 +41,37 @@ public class RequestResponseLoggingAspect {
 
     MDC.put("requestId", requestId);
     log.info(
-            "Request intercepted:\n--------------------------------------------\nINCOMING REQUEST:\nrequestId = {}\nmethod = {}\nuri = {}\nhandler = {}\nclient = {}\nuserAgent = {}\n--------------------------------------------",
-            requestId,
-            method,
-            uri,
-            handler,
-            client,
-            userAgent);
+        "Request intercepted:\n--------------------------------------------\nINCOMING REQUEST:\nrequestId = {}\nmethod = {}\nuri = {}\nhandler = {}\nclient = {}\nuserAgent = {}\n--------------------------------------------",
+        requestId,
+        method,
+        uri,
+        handler,
+        client,
+        userAgent);
 
     try {
       Object result = joinPoint.proceed();
       long durationMs = Duration.ofNanos(System.nanoTime() - start).toMillis();
       log.info(
-              "Response intercepted\n--------------------------------------------\nOUTGOING RESPONSE:\nrequestId = {}\nmethod = {}\nuri = {}\nstatus = {}\ndurationMs = {}\nhandler = {}\nclient = {}\n--------------------------------------------",
-              requestId,
-              method,
-              uri,
-              response != null ? response.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR.value(),
-              durationMs,
-              handler,
-              client);
+          "Response intercepted\n--------------------------------------------\nOUTGOING RESPONSE:\nrequestId = {}\nmethod = {}\nuri = {}\nstatus = {}\ndurationMs = {}\nhandler = {}\nclient = {}\n--------------------------------------------",
+          requestId,
+          method,
+          uri,
+          response != null ? response.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR.value(),
+          durationMs,
+          handler,
+          client);
       return result;
     } catch (Throwable ex) {
       long durationMs = Duration.ofNanos(System.nanoTime() - start).toMillis();
       log.error(
-              "Error intercepted\n--------------------------------------------\nOUTGOING ERROR RESPONSE:\nrequestId = {}\nmethod = {}\nuri = {}\ndurationMs = {}\nhandler = {}\nclient = {}\n--------------------------------------------",
-              requestId,
-              method,
-              uri,
-              durationMs,
-              handler,
-              client);
+          "Error intercepted\n--------------------------------------------\nOUTGOING ERROR RESPONSE:\nrequestId = {}\nmethod = {}\nuri = {}\ndurationMs = {}\nhandler = {}\nclient = {}\n--------------------------------------------",
+          requestId,
+          method,
+          uri,
+          durationMs,
+          handler,
+          client);
       throw ex;
     } finally {
       MDC.remove("requestId");
