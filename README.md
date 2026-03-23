@@ -2,13 +2,22 @@
 ---
 
 ![Language](https://img.shields.io/badge/language-Java_21-blue)
-![Framework](https://img.shields.io/badge/framework-Spring_Boot-brightgreen)
+![Framework](https://img.shields.io/badge/framework-Spring_Boot_3-brightgreen)
 ![Databases](https://img.shields.io/badge/databases-PostgreSQL%20%7C%20MongoDB-blue)
+![ORM](https://img.shields.io/badge/ORM-JPA%20(Hibernate)-orange)
+![NoSQL](https://img.shields.io/badge/NoSQL-Spring_Data_MongoDB-green)
 ![Container](https://img.shields.io/badge/container-Docker-blue)
-![API](https://img.shields.io/badge/codegen-OpenAPI-orange)
-![Swagger](https://img.shields.io/badge/API_docs-Swagger-orange)
+![API](https://img.shields.io/badge/API-OpenAPI_3-orange)
+![Docs](https://img.shields.io/badge/docs-Swagger_UI-orange)
+![Codegen](https://img.shields.io/badge/codegen-OpenAPI_Generator-yellow)
 ![Mapper](https://img.shields.io/badge/mapper-MapStruct-yellow)
 ![Boilerplate](https://img.shields.io/badge/boilerplate-Lombok-red)
+![Cache](https://img.shields.io/badge/cache-Caffeine-lightgrey)
+![Testing](https://img.shields.io/badge/testing-Testcontainers%20%7C%20JUnit5-blue)
+![Coverage](https://img.shields.io/badge/coverage-JaCoCo-green)
+![Formatting](https://img.shields.io/badge/formatting-Spotless-purple)
+![Observability](https://img.shields.io/badge/monitoring-Spring_Actuator-brightgreen)
+![AOP](https://img.shields.io/badge/logging-AOP-lightgrey)
 
 # SQL vs NoSQL Backend
 
@@ -16,15 +25,15 @@ This project was developed as part of a Bachelor's thesis in Computer Engineerin
 
 The goal is to compare **relational (SQL)** and **NoSQL** database paradigms by implementing the same backend application using:
 
-- PostgreSQL (relational model)
-- MongoDB (document model)
+- PostgreSQL (relational model via JPA/Hibernate)
+- MongoDB (document model via Spring Data MongoDB)
 
-The application is designed to **dynamically switch between the two databases** using a configuration property, allowing direct comparison of:
+The application is designed to **dynamically switch between the two databases** using a configuration property, enabling a direct comparison of:
 
 - data modeling approaches
 - query strategies
 - performance characteristics
-- consistency and constraints handling
+- consistency and constraint handling
 
 ---
 
@@ -40,10 +49,18 @@ The application is designed to **dynamically switch between the two databases** 
 ## 🧩 Key Features
 
 - Dual database support (PostgreSQL / MongoDB)
-- Same business logic for both implementations
-- REST API with OpenAPI documentation
-- Fully containerized environment (Docker)
-- Automated API testing with Newman
+- Runtime switch via configuration property (`app.datasource`)
+- Shared business logic across implementations
+- REST API generated from OpenAPI specification
+- Swagger UI for API exploration
+- Validation with Jakarta Bean Validation
+- Caching with Caffeine
+- Health checks and metrics via Spring Actuator
+- Containerized environment (Docker & Docker Compose)
+- Integration testing with Testcontainers
+- Code formatting with Spotless
+- Code coverage with JaCoCo
+- (Planned) Cross-cutting logging using Spring AOP
 
 ---
 
@@ -55,14 +72,43 @@ The application is designed to **dynamically switch between the two databases** 
 
 ---
 
-## 📦 Tech stack
+## 📦 Tech Stack
 
-* Java 21 + Spring Boot
-* PostgreSQL (relational)
-* MongoDB (NoSQL)
-* Docker & Docker Compose
-* OpenAPI (API specification)
-* Swagger UI (API exploration)
-* Swagger Codegen (code generation)
+### Backend
+- Java 21
+- Spring Boot 3.x
+- Spring Web (REST APIs)
+- Spring Data JPA (Hibernate)
+- Spring Data MongoDB
+- Spring Validation (Jakarta Bean Validation)
+- Spring Cache + Caffeine
+- Spring Boot Actuator
+
+### API & Code Generation
+- OpenAPI 3
+- springdoc-openapi (Swagger UI)
+- OpenAPI Generator (interface-first approach)
+
+### Mapping & Boilerplate
+- MapStruct
+- Lombok
+
+### Database
+- PostgreSQL
+- MongoDB
+
+### Testing
+- JUnit 5
+- Testcontainers (PostgreSQL + MongoDB)
+- Instancio (test data generation)
+
+### DevOps & Tooling
+- Docker & Docker Compose
+- Maven
+- Spotless (code formatting)
+- JaCoCo (code coverage)
+
+### Logs
+- Spring AOP for centralized logging
 
 ---
