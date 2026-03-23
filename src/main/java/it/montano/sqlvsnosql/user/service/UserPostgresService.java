@@ -34,7 +34,9 @@ public class UserPostgresService implements UserService {
 
   @Override
   public @NonNull UserResponse getUserById(@NonNull UUID userId) {
-    return repo.findById(userId).map(mapper::toResponse).orElseThrow(() ->  new ResourceNotFoundException(userId.toString()));
+    return repo.findById(userId)
+        .map(mapper::toResponse)
+        .orElseThrow(() -> new ResourceNotFoundException(userId.toString()));
   }
 
   @Override

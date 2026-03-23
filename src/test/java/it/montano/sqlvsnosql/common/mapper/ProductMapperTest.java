@@ -36,9 +36,12 @@ class ProductMapperTest {
 
     assertThat(result)
         .isNotNull()
-        .satisfies(r -> assertThat(r.getId()).isNull())
+        .satisfies(r -> {
+          assertThat(r.getId()).isNull();
+          assertThat(r.getPrice()).isEqualTo(mapper.roundPrice(request.getPrice()));
+        })
         .usingRecursiveComparison()
-        .ignoringFields("id")
+        .ignoringFields("id", "price")
         .isEqualTo(request);
   }
 
@@ -48,9 +51,12 @@ class ProductMapperTest {
 
     assertThat(result)
         .isNotNull()
-        .satisfies(r -> assertThat(r.getId()).isNotNull())
+        .satisfies(r -> {
+          assertThat(r.getId()).isNotNull();
+          assertThat(r.getPrice()).isEqualTo(mapper.roundPrice(request.getPrice()));
+        })
         .usingRecursiveComparison()
-        .ignoringFields("id")
+        .ignoringFields("id", "price")
         .isEqualTo(request);
   }
 
@@ -76,5 +82,14 @@ class ProductMapperTest {
         .usingRecursiveComparison()
         .ignoringFields("id")
         .isEqualTo(request);
+  }
+
+  @Test
+  void shouldRoundPrice() {
+    double initialPrice = 142.412454525;
+
+    double rounded = mapper.roundPrice(initialPrice);
+
+    assertThat(rounded).isEqualTo(142.41);
   }
 }

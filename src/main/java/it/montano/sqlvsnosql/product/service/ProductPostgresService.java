@@ -34,7 +34,9 @@ public class ProductPostgresService implements ProductService {
 
   @Override
   public @NonNull ProductResponse getProductById(@NonNull UUID productId) {
-    return repo.findById(productId).map(mapper::toResponse).orElseThrow(() ->  new ResourceNotFoundException(productId.toString()));
+    return repo.findById(productId)
+        .map(mapper::toResponse)
+        .orElseThrow(() -> new ResourceNotFoundException(productId.toString()));
   }
 
   @Override
@@ -45,7 +47,9 @@ public class ProductPostgresService implements ProductService {
   @Override
   public @NonNull ProductResponse updateProduct(
       @NonNull UUID productId, ProductRequest productRequest) {
-    ProductEntity entity = repo.findById(productId).orElseThrow(() ->  new ResourceNotFoundException(productId.toString()));
+    ProductEntity entity =
+        repo.findById(productId)
+            .orElseThrow(() -> new ResourceNotFoundException(productId.toString()));
     mapper.updateEntity(productRequest, entity);
     return mapper.toResponse(repo.save(entity));
   }

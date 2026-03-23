@@ -49,7 +49,9 @@ public class OrderMongoService implements OrderService {
 
   @Override
   public @NonNull OrderResponse getOrderById(@NonNull UUID orderId) {
-    return repo.findById(orderId).map(mapper::toResponse).orElseThrow(() ->  new ResourceNotFoundException(orderId.toString()));
+    return repo.findById(orderId)
+        .map(mapper::toResponse)
+        .orElseThrow(() -> new ResourceNotFoundException(orderId.toString()));
   }
 
   @Override

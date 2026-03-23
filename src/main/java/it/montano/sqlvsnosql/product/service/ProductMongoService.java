@@ -34,7 +34,9 @@ public class ProductMongoService implements ProductService {
 
   @Override
   public @NonNull ProductResponse getProductById(@NonNull UUID productId) {
-    return repo.findById(productId).map(mapper::toResponse).orElseThrow(() ->  new ResourceNotFoundException(productId.toString()));
+    return repo.findById(productId)
+        .map(mapper::toResponse)
+        .orElseThrow(() -> new ResourceNotFoundException(productId.toString()));
   }
 
   @Override
@@ -45,7 +47,9 @@ public class ProductMongoService implements ProductService {
   @Override
   public @NonNull ProductResponse updateProduct(
       @NonNull UUID productId, ProductRequest productRequest) {
-    ProductDocument doc = repo.findById(productId).orElseThrow(() ->  new ResourceNotFoundException(productId.toString()));
+    ProductDocument doc =
+        repo.findById(productId)
+            .orElseThrow(() -> new ResourceNotFoundException(productId.toString()));
     mapper.updateDocument(productRequest, doc);
     return mapper.toResponse(repo.save(doc));
   }

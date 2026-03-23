@@ -49,7 +49,7 @@ public class OrderPostgresService implements OrderService {
     return repo.findById(orderId)
         .map(mapper::toResponse)
         .map(this::enrichOrderResponse)
-        .orElseThrow(() ->  new ResourceNotFoundException(orderId.toString()));
+        .orElseThrow(() -> new ResourceNotFoundException(orderId.toString()));
   }
 
   @Override
