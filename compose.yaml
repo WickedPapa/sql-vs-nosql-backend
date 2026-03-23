@@ -3,6 +3,10 @@ services:
   postgres:
     image: postgres:15
     container_name: postgres-db
+    networks:
+      default:
+        aliases:
+          - postgres
     restart: always
     environment:
       POSTGRES_USER: postgres-admin
@@ -34,6 +38,10 @@ services:
   mongo:
     image: mongo:7
     container_name: mongo-db
+    networks:
+      default:
+        aliases:
+          - mongo
     restart: always
     ports:
       - "27017:27017"

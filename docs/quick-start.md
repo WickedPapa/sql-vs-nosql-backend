@@ -41,13 +41,13 @@ $env:HOME=$env:USERPROFILE; $env:APP_DATASOURCE="MONGODB"; docker compose up -d 
 
 ## 🧪 Run API tests (automatic)
 
+> ### ⚠️ Prerequisite
+> The application must be already running and fully started before executing the tests
+
 You can run all API tests (including minimal automatic data setup) using Newman via Docker.
 ```bash
 docker compose --profile test-newman run --rm newman
 ```
-
-### ⚠️ Prerequisite
-The application must be already running and fully started before executing the tests
 
 ---
 
