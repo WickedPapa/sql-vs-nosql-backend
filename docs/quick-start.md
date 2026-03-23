@@ -39,12 +39,20 @@ APP_DATASOURCE="MONGODB" docker compose up -d --build
 ## 🧪 Run API tests (automatic)
 
 > ### ⚠️ Prerequisite
-> The application must be already running and fully started before executing the tests
+> The application must be up and running before executing the tests.
 
-You can run all API tests (including minimal automatic data setup) using Newman via Docker.
+You can run all API tests (including minimal automatic data setup) using Newman via Docker with the following command:
 ```bash
 docker compose --profile test-newman run --rm newman
 ```
+
+---
+
+## 🌐 Available services
+
+Once the application is up and running, all services (API, UIs, and monitoring endpoints) become available.
+
+👉 See [Services](docs/services.md) for the full list of accessible endpoints and tools.
 
 ---
 
