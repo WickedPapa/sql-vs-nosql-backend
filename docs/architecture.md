@@ -77,6 +77,18 @@ This ensures separation between API and persistence models.
 
 ---
 
+## ⚡ Caching
+- Caffeine powers `users`, `products`, `orders`, and `orders-by-user` caches, each with tailored TTL and size caps (defined in `CaffeineCacheConfig`).
+- Cache hit/miss/put metrics are exported via Spring Actuator for observability and tuning.
+
+---
+
+## 📜 Logging & Observability
+- A request/response AOP aspect logs every REST call with an MDC `requestId`.
+- A cache AOP aspect reports cache operations (hit, miss, put, evict), complementing the Actuator metrics/health endpoints.
+
+---
+
 ## ❗ Error Handling
 
 A global exception handler provides a consistent error response structure:

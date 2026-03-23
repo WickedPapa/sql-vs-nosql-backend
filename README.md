@@ -60,7 +60,7 @@ The application is designed to **dynamically switch between the two databases** 
 - Integration testing with Testcontainers
 - Code formatting with Spotless
 - Code coverage with JaCoCo
-- (Planned) Cross-cutting logging using Spring AOP
+- Cross-cutting logging and HTTP tracing via Spring AOP aspects
 
 ---
 
