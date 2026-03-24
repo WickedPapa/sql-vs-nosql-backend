@@ -52,7 +52,7 @@ docker compose --profile test-newman run --rm newman
 
 Once the application is up and running, all services (API, UIs, and monitoring endpoints) become available.
 
-👉 See [Services](docs/services.md) for the full list of accessible endpoints and tools.
+👉 See [Services](services.md) for the full list of accessible endpoints and tools.
 
 ---
 
