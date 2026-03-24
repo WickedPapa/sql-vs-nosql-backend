@@ -67,7 +67,7 @@ You can filter metrics by cache name using query parameters:
 
 ---
 
-### 📈 Hit vs Miss analysis
+### 📈 Hit and Miss analysis
 
 - 👉 [Cache hits](http://localhost:8080/actuator/metrics/cache.gets?tag=cache:users&tag=result:hit)  
 - 👉 [Cache misses](http://localhost:8080/actuator/metrics/cache.gets?tag=cache:users&tag=result:miss)  
