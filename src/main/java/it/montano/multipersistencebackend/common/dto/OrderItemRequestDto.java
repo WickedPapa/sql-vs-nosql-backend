@@ -1,5 +1,6 @@
 package it.montano.multipersistencebackend.common.dto;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -13,5 +14,5 @@ public class OrderItemRequestDto {
   UUID productId;
   String name;
   Integer quantity;
-  Double price;
+  BigDecimal price;
 }

@@ -5,8 +5,10 @@ import it.montano.multipersistencebackend.common.dto.OrderRequestDto;
 import it.montano.multipersistencebackend.dto.*;
 import it.montano.multipersistencebackend.order.model.OrderDocument;
 import it.montano.multipersistencebackend.order.model.OrderEntity;
-import it.montano.multipersistencebackend.order.model.OrderItemDocument;
+import it.montano.multipersistencebackend.order.model.OrderItemEmbedded;
 import it.montano.multipersistencebackend.order.model.OrderItemEntity;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.UUID;
 import lombok.NonNull;
@@ -51,7 +53,7 @@ public interface OrderMapper {
   @Mapping(target = "productId", source = "productEmbedded.productId")
   @Mapping(target = "name", source = "productEmbedded.name")
   @Mapping(target = "price", source = "productEmbedded.price")
-  OrderItemResponse toResponse(OrderItemDocument entity);
+  OrderItemResponse toResponse(OrderItemEmbedded entity);
 
   @Mapping(target = "id", expression = "java(UUID.randomUUID())")
   @Mapping(target = "user.userId", source = "userResponse.id")
@@ -64,12 +66,15 @@ public interface OrderMapper {
   @Mapping(target = "productEmbedded.productId", source = "productId")
   @Mapping(target = "productEmbedded.name", source = "name")
   @Mapping(target = "productEmbedded.price", source = "price")
-  OrderItemDocument toDocument(OrderItemRequestDto request);
+  OrderItemEmbedded toDocument(OrderItemRequestDto request);
 
   @Mapping(target = "userId", source = "id")
   OrderUserResponse toOrderUserResponse(UserResponse userResponse);
 
-  default @NonNull Double calculateTotal(@NonNull List<OrderItemRequestDto> items) {
-    return items.stream().mapToDouble(item -> item.getPrice() * item.getQuantity()).sum();
+  default @NonNull BigDecimal calculateTotal(@NonNull List<OrderItemRequestDto> items) {
+    return items.stream()
+        .map(item -> item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())))
+        .reduce(BigDecimal.ZERO, BigDecimal::add)
+        .setScale(2, RoundingMode.HALF_UP);
   }
 }

@@ -8,6 +8,8 @@ import it.montano.multipersistencebackend.config.ConfiguredTest;
 import it.montano.multipersistencebackend.dto.*;
 import it.montano.multipersistencebackend.order.model.OrderDocument;
 import it.montano.multipersistencebackend.order.model.OrderEntity;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import org.instancio.junit.Given;
 import org.junit.jupiter.api.Test;
@@ -130,11 +132,13 @@ class OrderMapperTest {
   void shouldCalculateTotal() {
     OrderItemRequestDto item1 = new OrderItemRequestDto();
     OrderItemRequestDto item2 = new OrderItemRequestDto();
-    item1.setPrice(5.0);
+    item1.setPrice(BigDecimal.valueOf(5));
     item1.setQuantity(1);
-    item2.setPrice(2.5);
+    item2.setPrice(BigDecimal.valueOf(2.5));
     item2.setQuantity(2);
-    Double total = mapper.calculateTotal(List.of(item1, item2));
-    assertThat(total).isNotNull().isEqualTo(10.0);
+    BigDecimal total = mapper.calculateTotal(List.of(item1, item2));
+    assertThat(total)
+        .isNotNull()
+        .isEqualTo(BigDecimal.valueOf(10).setScale(2, RoundingMode.HALF_UP));
   }
 }

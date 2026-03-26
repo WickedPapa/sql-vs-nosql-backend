@@ -1,6 +1,7 @@
 package it.montano.multipersistencebackend.order.model;
 
 import jakarta.persistence.*;
+import java.math.BigDecimal;
 import java.util.UUID;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -25,7 +26,7 @@ public class OrderItemEntity {
   Integer quantity;
 
   @Column(nullable = false)
-  Double price;
+  BigDecimal price;
 
   @ManyToOne
   @JoinColumn(name = "order_id", nullable = false)

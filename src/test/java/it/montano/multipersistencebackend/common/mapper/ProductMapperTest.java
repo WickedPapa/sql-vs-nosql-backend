@@ -7,6 +7,7 @@ import it.montano.multipersistencebackend.dto.ProductRequest;
 import it.montano.multipersistencebackend.dto.ProductResponse;
 import it.montano.multipersistencebackend.product.model.ProductDocument;
 import it.montano.multipersistencebackend.product.model.ProductEntity;
+import java.math.BigDecimal;
 import org.instancio.junit.Given;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
@@ -88,10 +89,10 @@ class ProductMapperTest {
 
   @Test
   void shouldRoundPrice() {
-    double initialPrice = 142.412454525;
+    BigDecimal initialPrice = BigDecimal.valueOf(142.412454525);
 
-    double rounded = mapper.roundPrice(initialPrice);
+    BigDecimal rounded = mapper.roundPrice(initialPrice);
 
-    assertThat(rounded).isEqualTo(142.41);
+    assertThat(rounded).isEqualTo(BigDecimal.valueOf(142.41));
   }
 }

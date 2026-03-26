@@ -1,6 +1,7 @@
 package it.montano.multipersistencebackend.product.model;
 
 import jakarta.persistence.*;
+import java.math.BigDecimal;
 import java.util.UUID;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -22,5 +23,5 @@ public class ProductEntity {
   String name;
 
   @Column(nullable = false)
-  Double price;
+  BigDecimal price;
 }

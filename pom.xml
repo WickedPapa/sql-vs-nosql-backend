@@ -200,6 +200,9 @@
 								<useSpringBoot3>true</useSpringBoot3>
 								<openApiNullable>false</openApiNullable>
 							</configOptions>
+              <typeMappings>
+                <typeMapping>Double=java.math.BigDecimal</typeMapping>
+              </typeMappings>
 						</configuration>
 					</execution>
 				</executions>

@@ -1,5 +1,6 @@
 package it.montano.multipersistencebackend.product.model;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -20,5 +21,5 @@ public class ProductDocument {
   @Indexed(unique = true)
   String name;
 
-  Double price;
+  BigDecimal price;
 }

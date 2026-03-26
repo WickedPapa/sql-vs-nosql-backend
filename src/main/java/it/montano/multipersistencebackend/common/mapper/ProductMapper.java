@@ -32,7 +32,7 @@ public interface ProductMapper {
   @Mapping(target = "id", ignore = true)
   void updateDocument(ProductRequest productRequest, @MappingTarget ProductDocument doc);
 
-  default double roundPrice(double price) {
-    return BigDecimal.valueOf(price).setScale(2, RoundingMode.HALF_UP).doubleValue();
+  default BigDecimal roundPrice(BigDecimal price) {
+    return price.setScale(2, RoundingMode.HALF_UP);
   }
 }

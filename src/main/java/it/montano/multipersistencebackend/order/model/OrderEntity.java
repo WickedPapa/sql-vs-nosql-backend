@@ -1,6 +1,7 @@
 package it.montano.multipersistencebackend.order.model;
 
 import jakarta.persistence.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -27,5 +28,5 @@ public class OrderEntity {
   List<OrderItemEntity> items = new ArrayList<>();
 
   @Column(nullable = false)
-  Double total;
+  BigDecimal total;
 }

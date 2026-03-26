@@ -14,6 +14,8 @@ import it.montano.multipersistencebackend.order.model.OrderItemEntity;
 import it.montano.multipersistencebackend.order.repository.OrderPostgresRepository;
 import it.montano.multipersistencebackend.product.service.ProductService;
 import it.montano.multipersistencebackend.user.service.UserService;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -72,8 +74,11 @@ class OrderPostgresServiceTest {
               assertThat(r.getTotal())
                   .isEqualTo(
                       r.getItems().stream()
-                          .mapToDouble(item -> item.getPrice() * item.getQuantity())
-                          .sum());
+                          .map(
+                              item ->
+                                  item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())))
+                          .reduce(BigDecimal.ZERO, BigDecimal::add)
+                          .setScale(2, RoundingMode.HALF_UP));
             });
 
     verify(productService, times(2)).getProductById(productId);

@@ -1,5 +1,6 @@
 package it.montano.multipersistencebackend.order.model;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -12,5 +13,5 @@ import lombok.experimental.FieldDefaults;
 public class ProductEmbedded {
   UUID productId;
   String name;
-  Double price;
+  BigDecimal price;
 }

@@ -1,5 +1,6 @@
 package it.montano.multipersistencebackend.order.model;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -18,6 +19,6 @@ public class OrderDocument {
 
   @Id UUID id;
   UserEmbedded user;
-  List<OrderItemDocument> items = new ArrayList<>();
-  Double total;
+  List<OrderItemEmbedded> items = new ArrayList<>();
+  BigDecimal total;
 }
