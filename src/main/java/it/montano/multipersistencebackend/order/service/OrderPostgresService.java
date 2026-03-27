@@ -1,5 +1,6 @@
 package it.montano.multipersistencebackend.order.service;
 
+import it.montano.multipersistencebackend.common.constant.AppConfigConstants;
 import it.montano.multipersistencebackend.common.dto.OrderItemRequestDto;
 import it.montano.multipersistencebackend.common.dto.OrderRequestDto;
 import it.montano.multipersistencebackend.common.mapper.OrderMapper;
@@ -22,7 +23,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@ConditionalOnProperty(prefix = "app", name = "datasource", havingValue = "POSTGRES")
+@ConditionalOnProperty(
+    prefix = AppConfigConstants.PREFIX,
+    name = AppConfigConstants.DATASOURCE,
+    havingValue = AppConfigConstants.POSTGRES)
 public class OrderPostgresService implements OrderService {
 
   private final UserService userService;

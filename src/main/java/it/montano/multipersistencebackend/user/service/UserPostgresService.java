@@ -1,5 +1,6 @@
 package it.montano.multipersistencebackend.user.service;
 
+import it.montano.multipersistencebackend.common.constant.AppConfigConstants;
 import it.montano.multipersistencebackend.common.mapper.UserMapper;
 import it.montano.multipersistencebackend.config.exeption.ResourceNotFoundException;
 import it.montano.multipersistencebackend.dto.UserRequest;
@@ -18,7 +19,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@ConditionalOnProperty(prefix = "app", name = "datasource", havingValue = "POSTGRES")
+@ConditionalOnProperty(
+    prefix = AppConfigConstants.PREFIX,
+    name = AppConfigConstants.DATASOURCE,
+    havingValue = AppConfigConstants.POSTGRES)
 public class UserPostgresService implements UserService {
 
   private final UserPostgresRepository repo;

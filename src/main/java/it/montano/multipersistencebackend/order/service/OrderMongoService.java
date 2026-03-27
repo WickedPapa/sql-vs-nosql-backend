@@ -1,5 +1,6 @@
 package it.montano.multipersistencebackend.order.service;
 
+import it.montano.multipersistencebackend.common.constant.AppConfigConstants;
 import it.montano.multipersistencebackend.common.dto.OrderItemRequestDto;
 import it.montano.multipersistencebackend.common.dto.OrderRequestDto;
 import it.montano.multipersistencebackend.common.mapper.OrderMapper;
@@ -21,7 +22,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-@ConditionalOnProperty(prefix = "app", name = "datasource", havingValue = "MONGODB")
+@ConditionalOnProperty(
+    prefix = AppConfigConstants.PREFIX,
+    name = AppConfigConstants.DATASOURCE,
+    havingValue = AppConfigConstants.MONGODB)
 public class OrderMongoService implements OrderService {
 
   private final UserService userService;

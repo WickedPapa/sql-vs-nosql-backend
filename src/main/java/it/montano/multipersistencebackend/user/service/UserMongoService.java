@@ -1,5 +1,6 @@
 package it.montano.multipersistencebackend.user.service;
 
+import it.montano.multipersistencebackend.common.constant.AppConfigConstants;
 import it.montano.multipersistencebackend.common.mapper.UserMapper;
 import it.montano.multipersistencebackend.config.exeption.ResourceNotFoundException;
 import it.montano.multipersistencebackend.dto.UserRequest;
@@ -17,7 +18,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-@ConditionalOnProperty(prefix = "app", name = "datasource", havingValue = "MONGODB")
+@ConditionalOnProperty(
+    prefix = AppConfigConstants.PREFIX,
+    name = AppConfigConstants.DATASOURCE,
+    havingValue = AppConfigConstants.MONGODB)
 public class UserMongoService implements UserService {
 
   private final UserMongoRepository repo;
