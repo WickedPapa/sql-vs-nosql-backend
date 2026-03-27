@@ -21,14 +21,16 @@ import org.mapstruct.MappingTarget;
 public interface OrderMapper {
 
   @Mapping(target = "user.userId", source = "userId")
-  @Mapping(target = "user.firstName", ignore = true)
-  @Mapping(target = "user.lastName", ignore = true)
-  @Mapping(target = "user.email", ignore = true)
+  @Mapping(target = "user.firstName", source = "firstName")
+  @Mapping(target = "user.lastName", source = "lastName")
+  @Mapping(target = "user.email", source = "email")
   OrderResponse toResponse(OrderEntity entity);
 
-  @Mapping(target = "name", ignore = true)
   OrderItemResponse toResponse(OrderItemEntity entity);
 
+  @Mapping(target = "firstName", ignore = true)
+  @Mapping(target = "lastName", ignore = true)
+  @Mapping(target = "email", ignore = true)
   OrderRequestDto toDto(OrderRequest request);
 
   @Mapping(target = "name", ignore = true)
@@ -48,12 +50,12 @@ public interface OrderMapper {
   @Mapping(target = "order", ignore = true)
   OrderItemEntity toEntity(OrderItemRequestDto request);
 
-  OrderResponse toResponse(OrderDocument entity);
+  OrderResponse toResponse(OrderDocument order);
 
   @Mapping(target = "productId", source = "productEmbedded.productId")
   @Mapping(target = "name", source = "productEmbedded.name")
   @Mapping(target = "price", source = "productEmbedded.price")
-  OrderItemResponse toResponse(OrderItemEmbedded entity);
+  OrderItemResponse toResponse(OrderItemEmbedded orderItem);
 
   @Mapping(target = "id", expression = "java(UUID.randomUUID())")
   @Mapping(target = "user.userId", source = "userResponse.id")

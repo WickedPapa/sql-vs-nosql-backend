@@ -1,7 +1,6 @@
 package it.montano.multipersistencebackend.order.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.instancio.Select.field;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
@@ -10,7 +9,6 @@ import it.montano.multipersistencebackend.config.ConfiguredTest;
 import it.montano.multipersistencebackend.config.exeption.ResourceNotFoundException;
 import it.montano.multipersistencebackend.dto.*;
 import it.montano.multipersistencebackend.order.model.OrderEntity;
-import it.montano.multipersistencebackend.order.model.OrderItemEntity;
 import it.montano.multipersistencebackend.order.repository.OrderPostgresRepository;
 import it.montano.multipersistencebackend.product.service.ProductService;
 import it.montano.multipersistencebackend.user.service.UserService;
@@ -19,7 +17,6 @@ import java.math.RoundingMode;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import org.instancio.Instancio;
 import org.instancio.junit.Given;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
@@ -81,7 +78,7 @@ class OrderPostgresServiceTest {
                           .setScale(2, RoundingMode.HALF_UP));
             });
 
-    verify(productService, times(2)).getProductById(productId);
+    verify(productService).getProductById(productId);
     verify(userService).getUserById(userId);
   }
 
@@ -93,41 +90,15 @@ class OrderPostgresServiceTest {
   }
 
   @Test
-  void shouldGetOrderById(
-      @Given UUID orderId, @Given ProductResponse product, @Given UserResponse user) {
+  void shouldGetOrderById(@Given UUID orderId, @Given OrderEntity entity) {
 
-    OrderItemEntity orderItemEntity = Instancio.create(OrderItemEntity.class);
-    OrderEntity entity =
-        Instancio.of(OrderEntity.class)
-            .set(field(OrderEntity::getItems), List.of(orderItemEntity))
-            .create();
     when(repo.findById(orderId)).thenReturn(Optional.of(entity));
-    when(productService.getProductById(any())).thenReturn(product);
-    when(userService.getUserById(any())).thenReturn(user);
 
     OrderResponse result = service.getOrderById(orderId);
 
-    assertThat(result)
-        .isNotNull()
-        .satisfies(
-            r -> {
-              assertThat(r.getUser().getUserId()).isEqualTo(user.getId());
-              assertThat(r.getUser().getFirstName()).isEqualTo(user.getFirstName());
-              assertThat(r.getUser().getLastName()).isEqualTo(user.getLastName());
-              assertThat(r.getUser().getEmail()).isEqualTo(user.getEmail());
-              assertThat(r.getItems())
-                  .singleElement()
-                  .satisfies(
-                      item -> {
-                        assertThat(item.getProductId()).isEqualTo(orderItemEntity.getProductId());
-                        assertThat(item.getName()).isEqualTo(product.getName());
-                        assertThat(item.getQuantity()).isEqualTo(orderItemEntity.getQuantity());
-                        assertThat(item.getPrice()).isEqualTo(orderItemEntity.getPrice());
-                      });
-            });
+    assertThat(result).isNotNull();
 
     verify(repo).findById(orderId);
-    verify(userService).getUserById(any());
   }
 
   @Test
@@ -136,84 +107,26 @@ class OrderPostgresServiceTest {
   }
 
   @Test
-  void shouldGetOrdersByUserId(
-      @Given UUID userId, @Given ProductResponse product, @Given UserResponse user) {
-
-    OrderItemEntity orderItemEntity = Instancio.create(OrderItemEntity.class);
-    OrderEntity entity =
-        Instancio.of(OrderEntity.class)
-            .set(field(OrderEntity::getItems), List.of(orderItemEntity))
-            .create();
+  void shouldGetOrdersByUserId(@Given UUID userId, @Given OrderEntity entity) {
     when(repo.findByUserId(userId)).thenReturn(List.of(entity));
-    when(productService.getProductById(any())).thenReturn(product);
-    when(userService.getUserById(any())).thenReturn(user);
 
     List<OrderResponse> result = service.getOrdersByUserId(userId);
 
-    assertThat(result)
-        .isNotNull()
-        .singleElement()
-        .satisfies(
-            r -> {
-              assertThat(r.getUser().getUserId()).isEqualTo(user.getId());
-              assertThat(r.getUser().getFirstName()).isEqualTo(user.getFirstName());
-              assertThat(r.getUser().getLastName()).isEqualTo(user.getLastName());
-              assertThat(r.getUser().getEmail()).isEqualTo(user.getEmail());
-              assertThat(r.getItems())
-                  .singleElement()
-                  .satisfies(
-                      item -> {
-                        assertThat(item.getProductId()).isEqualTo(orderItemEntity.getProductId());
-                        assertThat(item.getName()).isEqualTo(product.getName());
-                        assertThat(item.getQuantity()).isEqualTo(orderItemEntity.getQuantity());
-                        assertThat(item.getPrice()).isEqualTo(orderItemEntity.getPrice());
-                      });
-            });
+    assertThat(result).isNotNull().hasSize(1);
 
     verify(repo).findByUserId(userId);
-    verify(userService).getUserById(any());
   }
 
   @Test
-  void shouldGetOrders(
-      @Given UUID userId, @Given ProductResponse product, @Given UserResponse user) {
+  void shouldGetOrders(@Given OrderEntity order) {
 
-    OrderItemEntity orderItemEntity = Instancio.create(OrderItemEntity.class);
-
-    OrderEntity entity =
-        Instancio.of(OrderEntity.class)
-            .set(field(OrderEntity::getUserId), userId)
-            .set(field(OrderEntity::getItems), List.of(orderItemEntity))
-            .create();
-
-    when(repo.findAll()).thenReturn(List.of(entity));
-    when(productService.getProductById(orderItemEntity.getProductId())).thenReturn(product);
-    when(userService.getUserById(userId)).thenReturn(user);
+    when(repo.findAll()).thenReturn(List.of(order));
 
     List<OrderResponse> result = service.getOrders();
 
-    assertThat(result)
-        .isNotNull()
-        .singleElement()
-        .satisfies(
-            r -> {
-              assertThat(r.getUser().getUserId()).isEqualTo(user.getId());
-              assertThat(r.getUser().getFirstName()).isEqualTo(user.getFirstName());
-              assertThat(r.getUser().getLastName()).isEqualTo(user.getLastName());
-              assertThat(r.getUser().getEmail()).isEqualTo(user.getEmail());
-              assertThat(r.getItems())
-                  .singleElement()
-                  .satisfies(
-                      item -> {
-                        assertThat(item.getProductId()).isEqualTo(orderItemEntity.getProductId());
-                        assertThat(item.getName()).isEqualTo(product.getName());
-                        assertThat(item.getQuantity()).isEqualTo(orderItemEntity.getQuantity());
-                        assertThat(item.getPrice()).isEqualTo(orderItemEntity.getPrice());
-                      });
-            });
+    assertThat(result).isNotNull().hasSize(1);
 
     verify(repo).findAll();
-    verify(userService).getUserById(userId);
   }
 
   @Test

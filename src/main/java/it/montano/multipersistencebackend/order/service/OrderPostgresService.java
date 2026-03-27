@@ -41,9 +41,10 @@ public class OrderPostgresService implements OrderService {
   @Override
   public @NonNull OrderResponse createOrder(@NonNull OrderRequest request) {
     OrderRequestDto orderItemRequestDto = mapper.toDto(request);
+    enrichOrderWithUser(orderItemRequestDto);
     enrichOrderItems(orderItemRequestDto);
     OrderEntity saved = repo.save(mapper.toEntity(orderItemRequestDto));
-    return enrichOrderResponse(mapper.toResponse(saved));
+    return mapper.toResponse(saved);
   }
 
   /**
@@ -85,7 +86,6 @@ public class OrderPostgresService implements OrderService {
   public @NonNull OrderResponse getOrderById(@NonNull UUID orderId) {
     return repo.findById(orderId)
         .map(mapper::toResponse)
-        .map(this::enrichOrderResponse)
         .orElseThrow(() -> new ResourceNotFoundException(orderId.toString()));
   }
 
@@ -99,10 +99,7 @@ public class OrderPostgresService implements OrderService {
   @Transactional(readOnly = true)
   @Override
   public @NonNull List<OrderResponse> getOrdersByUserId(@NonNull UUID userId) {
-    return repo.findByUserId(userId).stream()
-        .map(mapper::toResponse)
-        .map(this::enrichOrderResponse)
-        .toList();
+    return repo.findByUserId(userId).stream().map(mapper::toResponse).toList();
   }
 
   /**
@@ -113,7 +110,7 @@ public class OrderPostgresService implements OrderService {
   @Transactional(readOnly = true)
   @Override
   public @NonNull List<OrderResponse> getOrders() {
-    return repo.findAll().stream().map(mapper::toResponse).map(this::enrichOrderResponse).toList();
+    return repo.findAll().stream().map(mapper::toResponse).toList();
   }
 
   /**
@@ -127,24 +124,20 @@ public class OrderPostgresService implements OrderService {
     return repo.getTotalSpentPerUser();
   }
 
+  private void enrichOrderWithUser(@NonNull OrderRequestDto request) {
+    UserResponse response = userService.getUserById(request.getUserId());
+    request.setFirstName(response.getFirstName());
+    request.setLastName(response.getLastName());
+    request.setEmail(response.getEmail());
+  }
+
   private void enrichOrderItems(@NonNull OrderRequestDto orderRequestDto) {
-    orderRequestDto.getItems().forEach(this::fillItemPrice);
+    orderRequestDto.getItems().forEach(this::fillItem);
   }
 
-  private OrderResponse enrichOrderResponse(@NonNull OrderResponse orderResponse) {
-    orderResponse.getItems().forEach(this::fillItemName);
-    UserResponse userResponse = userService.getUserById(orderResponse.getUser().getUserId());
-    orderResponse.setUser(mapper.toOrderUserResponse(userResponse));
-    return orderResponse;
-  }
-
-  private void fillItemPrice(@NonNull OrderItemRequestDto orderItemRequestDto) {
-    orderItemRequestDto.setPrice(
-        productService.getProductById(orderItemRequestDto.getProductId()).getPrice());
-  }
-
-  private void fillItemName(@NonNull OrderItemResponse orderItemResponse) {
-    orderItemResponse.setName(
-        productService.getProductById(orderItemResponse.getProductId()).getName());
+  private void fillItem(@NonNull OrderItemRequestDto orderItemRequestDto) {
+    ProductResponse product = productService.getProductById(orderItemRequestDto.getProductId());
+    orderItemRequestDto.setName(product.getName());
+    orderItemRequestDto.setPrice(product.getPrice());
   }
 }

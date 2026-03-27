@@ -28,7 +28,7 @@ class OrderMapperTest {
     assertThat(dto)
         .isNotNull()
         .usingRecursiveComparison()
-        .ignoringFields("items.price", "items.name")
+        .ignoringFields("firstName", "lastName", "email", "items.price", "items.name")
         .isEqualTo(orderRequest);
   }
 
@@ -61,9 +61,15 @@ class OrderMapperTest {
 
     assertThat(response)
         .isNotNull()
-        .satisfies(r -> assertThat(r.getUser().getUserId()).isEqualTo(entity.getUserId()))
+        .satisfies(
+            r -> {
+              assertThat(r.getUser().getUserId()).isEqualTo(entity.getUserId());
+              assertThat(r.getUser().getFirstName()).isEqualTo(entity.getFirstName());
+              assertThat(r.getUser().getLastName()).isEqualTo(entity.getLastName());
+              assertThat(r.getUser().getEmail()).isEqualTo(entity.getEmail());
+            })
         .usingRecursiveComparison()
-        .ignoringFields("user", "items.name")
+        .ignoringFields("user")
         .isEqualTo(entity);
   }
 

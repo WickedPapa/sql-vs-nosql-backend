@@ -12,5 +12,8 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class OrderRequestDto {
   UUID userId;
+  String firstName;
+  String lastName;
+  String email;
   List<OrderItemRequestDto> items;
 }

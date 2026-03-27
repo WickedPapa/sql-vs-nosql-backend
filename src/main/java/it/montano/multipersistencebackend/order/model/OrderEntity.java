@@ -21,8 +21,23 @@ public class OrderEntity {
   @GeneratedValue(strategy = GenerationType.UUID)
   UUID id;
 
+  /**
+   * User data is intentionally denormalized inside the order. We store a snapshot of the user's
+   * information at the time the order is created, instead of referencing UserEntity. This ensures
+   * historical consistency: changes to the user profile do not affect existing orders. Only userId
+   * is kept as a reference, without a relational mapping.
+   */
   @Column(nullable = false)
   UUID userId;
+
+  @Column(nullable = false, length = 100)
+  String firstName;
+
+  @Column(nullable = false, length = 100)
+  String lastName;
+
+  @Column(nullable = false)
+  String email;
 
   @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
   List<OrderItemEntity> items = new ArrayList<>();

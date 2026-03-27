@@ -22,6 +22,9 @@ public class OrderItemEntity {
   @Column(nullable = false)
   UUID productId;
 
+  @Column(nullable = false, length = 150)
+  String name;
+
   @Column(nullable = false)
   Integer quantity;
 
